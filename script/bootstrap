@@ -9,7 +9,7 @@ function bootstrap {
   mkdir -p "$shome/vendor"
   rsync -ia "${BASEBOX_CACHE}/curl/sbt-launch-0.13.11.jar" "$shome/vendor/sbt-launch-0.13.11.jar"
   ln -nfs "$shome/vendor/sbt-launch-0.13.11.jar" "$shome/vendor/sbt-launch.jar"
-  sbt -version
+  sbt version
 }
 
 bootstrap
