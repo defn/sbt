@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+function bootstrap {
+  local shome="$(cd -P -- "$(dirname -- "$BASH_SOURCE")/.." && pwd -P)"
+  source "$shome/script/profile"
+
+  local url_sbt='https://repo.typesafe.com/typesafe/ivy-releases/org.scala-sbt/sbt-launch/0.13.11/sbt-launch.jar'
+  cache curl 'sbt-launch-0.13.11.jar' "$url_sbt" -sS -L
+  mkdir -p "$shome/vendor"
+  rsync -ia "${BASEBOX_CACHE}/curl/sbt-launch-0.13.11.jar" "$shome/vendor/sbt-launch-0.13.11.jar"
+  ln -nfs "$shome/vendor/sbt-launch-0.13.11.jar" "$shome/vendor/sbt-launch.jar"
+  sbt -version
+}
+
+bootstrap
