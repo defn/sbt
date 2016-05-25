@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+function version {
+  local shome="$(cd -P -- "$(dirname -- "$BASH_SOURCE")/.." && pwd -P)"
+  source "$shome/script/profile"
+
+  local ver_sbt="$(sbt -Dsbt.log.format=false sbtVersion | awk 'NR == 2 { print $2 }' || true)"
+  jq -n --arg sbt "$ver_sbt" '{sbt: $sbt}'
+}
+
+version "$@"
